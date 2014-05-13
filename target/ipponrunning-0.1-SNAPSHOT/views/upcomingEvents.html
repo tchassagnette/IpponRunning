@@ -1,0 +1,7 @@
+<h2>Liste des prochaines courses à venir</h2>
+
+<div class="event" ng-repeat="event in events">
+	<h3>{{event.title}}</h3>
+	<p class="horaire">Le {{event.startDate}} à {{event.localization}}</p>
+	<p class="text">{{event.description}}</p>
+</div>
