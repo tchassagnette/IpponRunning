@@ -5,6 +5,8 @@ import com.codahale.metrics.annotation.Timed;
 import fr.ippon.running.domain.Event;
 import fr.ippon.running.repository.EventRepository;
 import fr.ippon.running.security.SecurityUtils;
+import fr.ippon.running.service.EventService;
+import fr.ippon.running.web.rest.dto.EventDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class EventResource {
 
     @Inject
     private EventRepository eventRepository;
+    
+    @Inject
+    private EventService eventService;
 
     /**
      * POST  /rest/events -> Create a new event.
@@ -51,6 +56,19 @@ public class EventResource {
     	final String login = SecurityUtils.getCurrentLogin();
         log.debug("REST request to get all Events");
         return eventRepository.findAll();
+    }
+    
+    /**
+     * GET  /rest/events -> get all the events.
+     */
+    @RequestMapping(value = "/rest/events/upcoming",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    @Timed
+    public List<EventDTO> getUpcomingEvents() {
+    	final String login = SecurityUtils.getCurrentLogin();
+        log.debug("REST request to get upcoming Events");
+        return eventService.getUpcomingEvents(login);
     }
 
     /**

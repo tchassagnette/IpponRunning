@@ -3,6 +3,7 @@ package fr.ippon.running.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import fr.ippon.running.domain.Event;
 
@@ -11,5 +12,6 @@ import fr.ippon.running.domain.Event;
  */
 public interface EventRepository extends JpaRepository<Event, Long> {
 	
-
+	@Query(value="Select * from Event where start_date > NOW()")
+	public List<Event> findUpComingEvents();
 }
