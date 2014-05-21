@@ -134,6 +134,8 @@
 			<column name="id" type="bigint">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
+			<column name="event_id" type="bigint" />
+			<column name="user_login" type="varchar(500)" />
 			<column name="comment" type="varchar(500)" />
 			<column name="registration_date" type="datetime">
 				<constraints nullable="false" />
@@ -152,6 +154,8 @@
 				<constraints primaryKey="true" nullable="false" />
 			</column>
 			<column name="result_time" type="datetime" />
+			<column name="event_id" type="bigint" />
+			<column name="user_login" type="varchar(500)" />
 		</createTable>
 		
 		<addForeignKeyConstraint baseColumnNames="user_login"
@@ -176,6 +180,7 @@
 			<column name="licence_type" type="varchar(100)" />
 			<column name="licence_number" type="varchar(100)" />
 			<column name="update_date" type="datetime" />
+			<column name="user_login" type="varchar(500)" />
 		</createTable>
 		
 		<addForeignKeyConstraint baseColumnNames="user_login"

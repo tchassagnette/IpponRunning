@@ -8,8 +8,8 @@ ipponrunningApp
                     templateUrl: 'views/upcomingEvents.html',
                     controller: 'UpComingEventsController',
                     resolve:{
-                        resolvedEvent: ['Event', function (Event) {
-                            return Event.query();
+                        events: ['UpComingEvents', function (UpComingEvents) {
+                            return UpComingEvents.query();
                         }]
                     }
                 })

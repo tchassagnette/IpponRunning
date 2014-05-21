@@ -1,6 +1,8 @@
 package fr.ippon.running.web.rest.dto;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
+
+import fr.ippon.running.domain.Event;
 
 public class EventDTO {
 
@@ -8,7 +10,7 @@ public class EventDTO {
 	
 	private String title;
 	
-	private Date startDate;
+	private LocalDate startDate;
 	
 	private String localization;
 	
@@ -19,6 +21,14 @@ public class EventDTO {
 	private boolean isUserRegistered;
 	
 	private Long idUser;
+
+	public EventDTO(Event event) {
+		setId(event.getId());
+		setTitle(event.getTitle());
+		setStartDate(event.getStartDate());
+		setLocalization(event.getLocalization());
+		setShortDescription(event.getDescription());
+	}
 
 	public Long getId() {
 		return id;
@@ -36,11 +46,11 @@ public class EventDTO {
 		this.title = title;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 

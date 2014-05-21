@@ -12,6 +12,6 @@ import fr.ippon.running.domain.Event;
  */
 public interface EventRepository extends JpaRepository<Event, Long> {
 	
-	@Query(value="Select * from Event where start_date > NOW()")
+	@Query(value="Select e from Event e where start_date > CURRENT_DATE")
 	public List<Event> findUpComingEvents();
 }

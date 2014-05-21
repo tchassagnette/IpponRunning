@@ -1,6 +1,6 @@
 'use strict';
 
-ipponrunningApp.controller('ManageEventsController', ['$scope', 'resolvedEvent', 'Event',
+ipponrunningApp.controller('EventsController', ['$scope', 'resolvedEvent', 'Event',
     function ($scope, resolvedEvent, Event) {
 
         $scope.events = resolvedEvent;

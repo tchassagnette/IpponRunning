@@ -71,6 +71,21 @@ public class EventResource {
         return eventService.getUpcomingEvents(login);
     }
 
+    @RequestMapping(value = "/rest/events/{id}/detail",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    @Timed
+    public EventDTO getDetail(@PathVariable Long id, HttpServletResponse response) {
+        log.debug("REST request to get Event Detail : {}", id);
+        final String login = SecurityUtils.getCurrentLogin();
+        EventDTO event = eventService.getEventDetail(id, login);
+        if (event == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        log.info(event.toString());
+        return event;
+    }
+    
     /**
      * GET  /rest/events/:id -> get the "id" event.
      */

@@ -1,7 +1,7 @@
 'use strict';
 
-ipponrunningApp.controller('UpComingEventsController', ['$scope', 'resolvedEvent', 'Event',
-    function ($scope, resolvedEvent, Event) {
+ipponrunningApp.controller('UpComingEventsController', ['$scope', 'events', 'UpComingEvents',
+    function ($scope, events, UpComingEvents) {
 
-        $scope.events = resolvedEvent;
+        $scope.events = events;
 }]);

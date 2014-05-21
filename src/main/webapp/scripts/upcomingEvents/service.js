@@ -1,8 +1,8 @@
 'use strict';
 
-ipponrunningApp.factory('Event', ['$resource',
+ipponrunningApp.factory('UpComingEvents', ['$resource',
     function ($resource) {
-        return $resource('app/rest/events/:id', {}, {
+        return $resource('app/rest/events/upcoming', {}, {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET'}
         });
