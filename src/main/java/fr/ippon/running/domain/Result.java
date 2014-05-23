@@ -22,40 +22,39 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Result implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private long id;
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+		Result result = (Result) o;
 
-        Result result = (Result) o;
+		if (id != result.id) {
+			return false;
+		}
 
-        if (id != result.id) {
-            return false;
-        }
+		return true;
+	}
 
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
+	@Override
+	public int hashCode() {
+		return (int) (id ^ (id >>> 32));
+	}
 
 }

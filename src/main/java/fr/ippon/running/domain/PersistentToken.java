@@ -14,10 +14,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
 /**
  * Persistent tokens are used by Spring Security to automatically log in users.
- *
+ * 
  * @see fr.ippon.running.security.CustomPersistentRememberMeServices
  */
 @Entity
@@ -25,123 +24,121 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentToken implements Serializable {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
-    
-    private static final int MAX_USER_AGENT_LEN = 255;
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
+			.forPattern("d MMMM yyyy");
 
-    @Id
-    private String series;
+	private static final int MAX_USER_AGENT_LEN = 255;
 
-    @JsonIgnore
-    @NotNull
-    @Column(name = "token_value")
-    private String tokenValue;
+	@Id
+	private String series;
 
-    @JsonIgnore
-    @Column(name = "token_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    private LocalDate tokenDate;
+	@JsonIgnore
+	@NotNull
+	@Column(name = "token_value")
+	private String tokenValue;
 
-    //an IPV6 address max length is 39 characters
-    @Size(min = 0, max = 39)
-    @Column(name = "ip_address")
-    private String ipAddress;
+	@JsonIgnore
+	@Column(name = "token_date")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	private LocalDate tokenDate;
 
-    @Column(name = "user_agent")
-    private String userAgent;
+	// an IPV6 address max length is 39 characters
+	@Size(min = 0, max = 39)
+	@Column(name = "ip_address")
+	private String ipAddress;
 
-    @JsonIgnore
-    @ManyToOne
-    private User user;
+	@Column(name = "user_agent")
+	private String userAgent;
 
-    public String getSeries() {
-        return series;
-    }
+	@JsonIgnore
+	@ManyToOne
+	private User user;
 
-    public void setSeries(String series) {
-        this.series = series;
-    }
+	public String getSeries() {
+		return series;
+	}
 
-    public String getTokenValue() {
-        return tokenValue;
-    }
+	public void setSeries(String series) {
+		this.series = series;
+	}
 
-    public void setTokenValue(String tokenValue) {
-        this.tokenValue = tokenValue;
-    }
+	public String getTokenValue() {
+		return tokenValue;
+	}
 
-    public LocalDate getTokenDate() {
-        return tokenDate;
-    }
+	public void setTokenValue(String tokenValue) {
+		this.tokenValue = tokenValue;
+	}
 
-    public void setTokenDate(LocalDate tokenDate) {
-        this.tokenDate = tokenDate;
-    }
+	public LocalDate getTokenDate() {
+		return tokenDate;
+	}
 
-    @JsonGetter
-    public String getFormattedTokenDate() {
-        return DATE_TIME_FORMATTER.print(this.tokenDate);
-    }
+	public void setTokenDate(LocalDate tokenDate) {
+		this.tokenDate = tokenDate;
+	}
 
-    public String getIpAddress() {
-        return ipAddress;
-    }
+	@JsonGetter
+	public String getFormattedTokenDate() {
+		return DATE_TIME_FORMATTER.print(this.tokenDate);
+	}
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
+	public String getIpAddress() {
+		return ipAddress;
+	}
 
-    public String getUserAgent() {
-        return userAgent;
-    }
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
 
-    public void setUserAgent(String userAgent) {
-        if (userAgent.length() >= MAX_USER_AGENT_LEN) {
-            this.userAgent = userAgent.substring(0, MAX_USER_AGENT_LEN - 1);
-        } else {
-            this.userAgent = userAgent;
-        }
-    }
+	public String getUserAgent() {
+		return userAgent;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setUserAgent(String userAgent) {
+		if (userAgent.length() >= MAX_USER_AGENT_LEN) {
+			this.userAgent = userAgent.substring(0, MAX_USER_AGENT_LEN - 1);
+		} else {
+			this.userAgent = userAgent;
+		}
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-        PersistentToken that = (PersistentToken) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        if (!series.equals(that.series)) {
-            return false;
-        }
+		PersistentToken that = (PersistentToken) o;
 
-        return true;
-    }
+		if (!series.equals(that.series)) {
+			return false;
+		}
 
-    @Override
-    public int hashCode() {
-        return series.hashCode();
-    }
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "PersistentToken{" +
-                "series='" + series + '\'' +
-                ", tokenValue='" + tokenValue + '\'' +
-                ", tokenDate=" + tokenDate +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", userAgent='" + userAgent + '\'' +
-                "}";
-    }
+	@Override
+	public int hashCode() {
+		return series.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "PersistentToken{" + "series='" + series + '\''
+				+ ", tokenValue='" + tokenValue + '\'' + ", tokenDate="
+				+ tokenDate + ", ipAddress='" + ipAddress + '\''
+				+ ", userAgent='" + userAgent + '\'' + "}";
+	}
 }

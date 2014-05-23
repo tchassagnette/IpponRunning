@@ -19,28 +19,26 @@ import java.util.List;
 @RequestMapping("/app")
 public class AuditResource {
 
-    @Inject
-    private AuditEventService auditEventService;
+	@Inject
+	private AuditEventService auditEventService;
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDateTime.class, new LocaleDateTimeEditor("yyyy-MM-dd", false));
-    }
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDateTime.class,
+				new LocaleDateTimeEditor("yyyy-MM-dd", false));
+	}
 
-    @RequestMapping(value = "/rest/audits/all",
-            method = RequestMethod.GET,
-            produces = "application/json")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> findAll() {
-        return auditEventService.findAll();
-    }
+	@RequestMapping(value = "/rest/audits/all", method = RequestMethod.GET, produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public List<AuditEvent> findAll() {
+		return auditEventService.findAll();
+	}
 
-    @RequestMapping(value = "/rest/audits/byDates",
-            method = RequestMethod.GET,
-            produces = "application/json")
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> findByDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,
-                                    @RequestParam(value = "toDate") LocalDateTime toDate) {
-        return auditEventService.findByDates(fromDate, toDate);
-    }
+	@RequestMapping(value = "/rest/audits/byDates", method = RequestMethod.GET, produces = "application/json")
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public List<AuditEvent> findByDates(
+			@RequestParam(value = "fromDate") LocalDateTime fromDate,
+			@RequestParam(value = "toDate") LocalDateTime toDate) {
+		return auditEventService.findByDates(fromDate, toDate);
+	}
 }

@@ -14,33 +14,33 @@ import java.util.Map;
 @Configuration
 public class JHipsterHealthIndicatorConfiguration implements InitializingBean {
 
-    @Inject
-    private JavaMailSenderImpl javaMailSender;
+	@Inject
+	private JavaMailSenderImpl javaMailSender;
 
-    @Inject
-    private DataSource dataSource;
+	@Inject
+	private DataSource dataSource;
 
-    private JavaMailHealthCheckIndicator javaMailHealthCheckIndicator = new JavaMailHealthCheckIndicator();
-    private DatabaseHealthCheckIndicator databaseHealthCheckIndicator = new DatabaseHealthCheckIndicator();
+	private JavaMailHealthCheckIndicator javaMailHealthCheckIndicator = new JavaMailHealthCheckIndicator();
+	private DatabaseHealthCheckIndicator databaseHealthCheckIndicator = new DatabaseHealthCheckIndicator();
 
-    @Bean
-    public HealthIndicator healthIndicator() {
-        return new HealthIndicator() {
-            @Override
-            public Object health() {
-                Map<String, HealthCheckIndicator.Result> healths = new LinkedHashMap<>();
+	@Bean
+	public HealthIndicator healthIndicator() {
+		return new HealthIndicator() {
+			@Override
+			public Object health() {
+				Map<String, HealthCheckIndicator.Result> healths = new LinkedHashMap<>();
 
-                healths.putAll(javaMailHealthCheckIndicator.health());
-                healths.putAll(databaseHealthCheckIndicator.health());
+				healths.putAll(javaMailHealthCheckIndicator.health());
+				healths.putAll(databaseHealthCheckIndicator.health());
 
-                return healths;
-            }
-        };
-    }
+				return healths;
+			}
+		};
+	}
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        javaMailHealthCheckIndicator.setJavaMailSender(javaMailSender);
-        databaseHealthCheckIndicator.setDataSource(dataSource);
-    }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		javaMailHealthCheckIndicator.setJavaMailSender(javaMailSender);
+		databaseHealthCheckIndicator.setDataSource(dataSource);
+	}
 }

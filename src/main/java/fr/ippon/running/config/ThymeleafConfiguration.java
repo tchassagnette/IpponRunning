@@ -9,11 +9,11 @@ import javax.inject.Inject;
 @Configuration
 public class ThymeleafConfiguration {
 
-    @Inject
-    private ThymeleafViewResolver thymeleafViewResolver;
+	@Inject
+	private ThymeleafViewResolver thymeleafViewResolver;
 
-    @PostConstruct
-    private void init() {
-        thymeleafViewResolver.setViewNames(new String[]{"error", "/tl/*"});
-    }
+	@PostConstruct
+	private void init() {
+		thymeleafViewResolver.setViewNames(new String[] { "error", "/tl/*" });
+	}
 }

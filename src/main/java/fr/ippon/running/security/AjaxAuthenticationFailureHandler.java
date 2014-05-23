@@ -10,15 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Returns a 401 error code (Unauthorized) to the client, when Ajax authentication fails.
+ * Returns a 401 error code (Unauthorized) to the client, when Ajax
+ * authentication fails.
  */
 @Component
-public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class AjaxAuthenticationFailureHandler extends
+		SimpleUrlAuthenticationFailureHandler {
 
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+	@Override
+	public void onAuthenticationFailure(HttpServletRequest request,
+			HttpServletResponse response, AuthenticationException exception)
+			throws IOException, ServletException {
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
-    }
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+				"Authentication failed");
+	}
 }

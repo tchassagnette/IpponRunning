@@ -25,56 +25,67 @@ import java.util.List;
 @EnableTransactionManagement
 public class DatabaseConfiguration implements EnvironmentAware {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+	private final Logger log = LoggerFactory
+			.getLogger(DatabaseConfiguration.class);
 
-    private RelaxedPropertyResolver propertyResolver;
+	private RelaxedPropertyResolver propertyResolver;
 
-    @Inject
-    private Environment env;
+	@Inject
+	private Environment env;
 
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
-    }
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.propertyResolver = new RelaxedPropertyResolver(environment,
+				"spring.datasource.");
+	}
 
-    @Bean
-    public DataSource dataSource() {
-        log.debug("Configuring Datasource");
-        if (propertyResolver.getProperty("url") == null && propertyResolver.getProperty("databaseName") == null) {
-            log.error("Your database connection pool configuration is incorrect! The application" +
-                    "cannot start. Please check your Spring profile, current profiles are: {}",
-                    Arrays.toString(env.getActiveProfiles()));
+	@Bean
+	public DataSource dataSource() {
+		log.debug("Configuring Datasource");
+		if (propertyResolver.getProperty("url") == null
+				&& propertyResolver.getProperty("databaseName") == null) {
+			log.error(
+					"Your database connection pool configuration is incorrect! The application"
+							+ "cannot start. Please check your Spring profile, current profiles are: {}",
+					Arrays.toString(env.getActiveProfiles()));
 
-            throw new ApplicationContextException("Database connection pool is not configured correctly");
-        }
-        HikariConfig config = new HikariConfig();
-        config.setDataSourceClassName(propertyResolver.getProperty("dataSourceClassName"));
-        if (propertyResolver.getProperty("url") == null || "".equals(propertyResolver.getProperty("url"))) {
-            config.addDataSourceProperty("databaseName", propertyResolver.getProperty("databaseName"));
-            config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
-        } else {
-            config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
-        }
-        config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
-        config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
-        return new HikariDataSource(config);
-    }
+			throw new ApplicationContextException(
+					"Database connection pool is not configured correctly");
+		}
+		HikariConfig config = new HikariConfig();
+		config.setDataSourceClassName(propertyResolver
+				.getProperty("dataSourceClassName"));
+		if (propertyResolver.getProperty("url") == null
+				|| "".equals(propertyResolver.getProperty("url"))) {
+			config.addDataSourceProperty("databaseName",
+					propertyResolver.getProperty("databaseName"));
+			config.addDataSourceProperty("serverName",
+					propertyResolver.getProperty("serverName"));
+		} else {
+			config.addDataSourceProperty("url",
+					propertyResolver.getProperty("url"));
+		}
+		config.addDataSourceProperty("user",
+				propertyResolver.getProperty("username"));
+		config.addDataSourceProperty("password",
+				propertyResolver.getProperty("password"));
+		return new HikariDataSource(config);
+	}
 
-    @Bean(name = {"org.springframework.boot.autoconfigure.AutoConfigurationUtils.basePackages"})
-    public List<String> getBasePackages() {
-        List<String> basePackages = new ArrayList<>();
-        basePackages.add("fr.ippon.running.domain");
-        return basePackages;
-    }
+	@Bean(name = { "org.springframework.boot.autoconfigure.AutoConfigurationUtils.basePackages" })
+	public List<String> getBasePackages() {
+		List<String> basePackages = new ArrayList<>();
+		basePackages.add("fr.ippon.running.domain");
+		return basePackages;
+	}
 
-    @Bean
-    public SpringLiquibase liquibase() {
-        log.debug("Configuring Liquibase");
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource());
-        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
-        liquibase.setContexts("development, production");
-        return liquibase;
-    }
+	@Bean
+	public SpringLiquibase liquibase() {
+		log.debug("Configuring Liquibase");
+		SpringLiquibase liquibase = new SpringLiquibase();
+		liquibase.setDataSource(dataSource());
+		liquibase.setChangeLog("classpath:config/liquibase/master.xml");
+		liquibase.setContexts("development, production");
+		return liquibase;
+	}
 }
-

@@ -11,38 +11,42 @@ import javax.mail.MessagingException;
  */
 public class JavaMailHealthCheckIndicator extends HealthCheckIndicator {
 
-    public static final String EMAIL_HEALTH_INDICATOR = "email";
-	
-    private final Logger log = LoggerFactory.getLogger(JavaMailHealthCheckIndicator.class);
+	public static final String EMAIL_HEALTH_INDICATOR = "email";
 
-    private JavaMailSenderImpl javaMailSender;
+	private final Logger log = LoggerFactory
+			.getLogger(JavaMailHealthCheckIndicator.class);
 
-    public JavaMailHealthCheckIndicator() {
-    }
+	private JavaMailSenderImpl javaMailSender;
 
-    public void setJavaMailSender(JavaMailSenderImpl javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+	public JavaMailHealthCheckIndicator() {
+	}
 
-    @Override
-    protected String getHealthCheckIndicatorName() {
-        return EMAIL_HEALTH_INDICATOR;
-    }
+	public void setJavaMailSender(JavaMailSenderImpl javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
 
-    @Override
-    protected Result check() throws Exception {
-        log.debug("Initializing JavaMail health indicator");
+	@Override
+	protected String getHealthCheckIndicatorName() {
+		return EMAIL_HEALTH_INDICATOR;
+	}
 
-        try {
-            javaMailSender.getSession().getTransport().connect(javaMailSender.getHost(),
-                    javaMailSender.getUsername(),
-                    javaMailSender.getPassword());
+	@Override
+	protected Result check() throws Exception {
+		log.debug("Initializing JavaMail health indicator");
 
-            return healthy();
+		try {
+			javaMailSender
+					.getSession()
+					.getTransport()
+					.connect(javaMailSender.getHost(),
+							javaMailSender.getUsername(),
+							javaMailSender.getPassword());
 
-        } catch (MessagingException e) {
-            log.debug("Cannot connect to e-mail server.", e);
-            return unhealthy("Cannot connect to e-mail server", e);
-        }
-    }
+			return healthy();
+
+		} catch (MessagingException e) {
+			log.debug("Cannot connect to e-mail server.", e);
+			return unhealthy("Cannot connect to e-mail server", e);
+		}
+	}
 }

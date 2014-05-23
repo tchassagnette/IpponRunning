@@ -31,39 +31,39 @@ import fr.ippon.running.domain.util.CustomLocalDateSerializer;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Registration implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
-    
-    @NotNull
-    @Column(name="event_id")
-    private long eventId;
-    
-    @NotNull
-    @Size(min=1, max=100)
-    @Column(name="user_login")
-    private String login;
-    
-    @Size(min=1, max=500)
-    @Column(name="comment")
-    private String comment;
-    
-    @NotNull
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    @Column(name = "registration_date")
-    private LocalDate registrationDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private long id;
 
-    public long getId() {
-        return id;
-    }
+	@NotNull
+	@Column(name = "event_id")
+	private long eventId;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	@NotNull
+	@Size(min = 1, max = 100)
+	@Column(name = "user_login")
+	private String login;
 
-    public String getLogin() {
+	@Size(min = 1, max = 500)
+	@Column(name = "comment")
+	private String comment;
+
+	@NotNull
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = CustomLocalDateSerializer.class)
+	@Column(name = "registration_date")
+	private LocalDate registrationDate;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getLogin() {
 		return login;
 	}
 
@@ -79,8 +79,6 @@ public class Registration implements Serializable {
 		this.eventId = eventId;
 	}
 
-	
-	
 	public String getComment() {
 		return comment;
 	}
@@ -98,26 +96,26 @@ public class Registration implements Serializable {
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        Registration registration = (Registration) o;
+		Registration registration = (Registration) o;
 
-        if (id != registration.id) {
-            return false;
-        }
+		if (id != registration.id) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
+	@Override
+	public int hashCode() {
+		return (int) (id ^ (id >>> 32));
+	}
 
 }

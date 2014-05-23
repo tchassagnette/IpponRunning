@@ -25,47 +25,43 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Event implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
-    
-    @NotNull
-    @Size(min=1, max=100)
-    @Column(name="title")
-    private String title;
-    
-    @NotNull
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    @Column(name = "start_date")
-    private LocalDate startDate;
-    
-    @Size(min=1, max=100)
-    @Column(name="localization")
-    private String localization;
-    
-    
-    @Size(min=1, max=1000)
-    @Column(name="description")
-    private String description;
-    
-    @Size(min=1, max=100)
-    @Column(name="url_topo")
-    private String urlTopo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private long id;
 
+	@NotNull
+	@Size(min = 1, max = 100)
+	@Column(name = "title")
+	private String title;
 
-    public long getId() {
-        return id;
-    }
+	@NotNull
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = CustomLocalDateSerializer.class)
+	@Column(name = "start_date")
+	private LocalDate startDate;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-    
-    
+	@Size(min = 1, max = 100)
+	@Column(name = "localization")
+	private String localization;
 
-    public String getTitle() {
+	@Size(min = 1, max = 1000)
+	@Column(name = "description")
+	private String description;
+
+	@Size(min = 1, max = 100)
+	@Column(name = "url_topo")
+	private String urlTopo;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
 		return title;
 	}
 
@@ -106,35 +102,32 @@ public class Event implements Serializable {
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        Event event = (Event) o;
+		Event event = (Event) o;
 
-        if (id != event.id) {
-            return false;
-        }
+		if (id != event.id) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-    
-    @Override
-    public String toString() {
-    	return "User{" +
-                "id='" + id + '\'' +
-                "title='" + title + '\'' +
-                "startDate='" + startDate + '\'' +
-                "description='" + description + '\'' +
-                "}";
-    }
+	@Override
+	public int hashCode() {
+		return (int) (id ^ (id >>> 32));
+	}
+
+	@Override
+	public String toString() {
+		return "User{" + "id='" + id + '\'' + "title='" + title + '\''
+				+ "startDate='" + startDate + '\'' + "description='"
+				+ description + '\'' + "}";
+	}
 }

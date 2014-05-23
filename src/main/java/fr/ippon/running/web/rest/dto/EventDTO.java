@@ -7,19 +7,19 @@ import fr.ippon.running.domain.Event;
 public class EventDTO {
 
 	private Long id;
-	
+
 	private String title;
-	
+
 	private LocalDate startDate;
-	
+
 	private String localization;
-	
+
 	private String description;
-	
+
 	private String shortDescription;
-	
+
 	private boolean isUserRegistered;
-	
+
 	private Long idUser;
 
 	public EventDTO(Event event) {
@@ -93,6 +93,5 @@ public class EventDTO {
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
-	
-	
+
 }
