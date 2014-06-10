@@ -38,6 +38,7 @@ public class EventResource {
 	@Inject
 	private EventService eventService;
 
+	@Inject
 	private RegistrationService registrationService;
 
 	/**

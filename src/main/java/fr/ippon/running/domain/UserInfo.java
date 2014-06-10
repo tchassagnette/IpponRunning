@@ -1,38 +1,78 @@
-package fr.ippon.running.web.rest.dto;
+package fr.ippon.running.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
-import fr.ippon.running.domain.UserInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
 
-public class UserInfoDTO {
+import fr.ippon.running.domain.util.CustomLocalDateSerializer;
 
+@Entity
+@Table(name = "T_USER_INFOS")
+public class UserInfo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "adresse")
 	private String adresse;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "postal_code")
 	private String postalCode;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "city")
 	private String city;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "nationality")
 	private String nationality;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "contact")
 	private String contact;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "contact_phone")
 	private String contactPhone;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "tshirt_size")
 	private String tshirtSize;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "licence_type")
 	private String licenceType;
 
+	@Size(min = 1, max = 100)
+	@Column(name = "licence_number")
 	private String licenceNumber;
 
+	@NotNull
+	@Column(name = "update_date")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = CustomLocalDateSerializer.class)
 	private LocalDate updateDate;
 
+	@NotNull
+	@Size(min = 1, max = 100)
+	@Column(name = "user_login")
 	private String login;
-
-	public UserInfoDTO(UserInfo userInfo) {
-
-	}
 
 	public Long getId() {
 		return id;

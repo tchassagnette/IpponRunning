@@ -1,12 +1,8 @@
 package fr.ippon.running.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-
-import fr.ippon.running.domain.User;
-import fr.ippon.running.repository.UserRepository;
-import fr.ippon.running.security.AuthoritiesConstants;
-import fr.ippon.running.service.UserService;
-import fr.ippon.running.web.rest.dto.UserInfoDTO;
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import com.codahale.metrics.annotation.Timed;
+
+import fr.ippon.running.domain.User;
+import fr.ippon.running.repository.UserRepository;
+import fr.ippon.running.security.AuthoritiesConstants;
+import fr.ippon.running.service.UserService;
+import fr.ippon.running.web.rest.dto.UserInfoDTO;
 
 /**
  * REST controller for managing users.
@@ -59,5 +59,9 @@ public class UserResource {
 			HttpServletResponse response) {
 		log.debug("REST request to get User : {}", login);
 		return userService.getUserInfos(login);
+	}
+
+	public void saveUserInfos() {
+
 	}
 }
